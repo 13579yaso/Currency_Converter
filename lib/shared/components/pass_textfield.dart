@@ -13,7 +13,7 @@ class _PassTextFieldState extends State<PassTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       keyboardType: TextInputType.visiblePassword,
       obscureText: isPassword,
       controller: widget.customController,

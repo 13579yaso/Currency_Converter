@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../shared/components/custom_textfield.dart';
+import '../shared/components/login_cubit.dart';
 import '../shared/components/pass_textfield.dart';
 import 'Sign_up.dart';
 import 'currency_converter_screen.dart';
+import 'package:http/http.dart' as http;
+
+import 'login_states.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   Color OrangrColor = Colors.orange;
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<LoginCubit, LoginStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var cubit = LoginCubit.getObject(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(
@@ -44,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                 height: 64,
                 child:CustomTextField(
                   label: "Email",
-                  customController: emailController,
+                  customController:cubit.emailCont,
                 )
             ),
             SizedBox(
@@ -54,7 +61,8 @@ class LoginScreen extends StatelessWidget {
                 height: 64,
                 child: PassTextField(
                   label: "Password",
-                  customController: passwordController,
+                  customController: cubit.passwordCont
+                  ,
 
                 )
             ),
@@ -83,11 +91,7 @@ class LoginScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: InkWell(
                     onTap: (){
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (builder) => CurrencyConverterScreen()),
-                            (route) => false,
-                      );
+                      cubit.logIn(context);
                     },
                     child: Text(
                       'Login',
@@ -157,12 +161,9 @@ class LoginScreen extends StatelessWidget {
                 )
               ],
             ),
-
-
-
           ],
         ),
       ),
     );
-  }
-}
+  });
+}}

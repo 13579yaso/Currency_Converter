@@ -3,7 +3,7 @@ class CustomTextField extends StatefulWidget {
   final String label;
   final bool secure;
   final TextEditingController? customController;
-  CustomTextField({required this.label, this.secure = false,this.customController});
+  CustomTextField({required this.label, this.secure = true,this.customController});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -12,7 +12,7 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
-    return  TextField(
+    return  TextFormField(
       obscureText: widget.secure,
       controller: widget.customController,
       style: TextStyle(
